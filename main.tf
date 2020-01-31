@@ -4,5 +4,5 @@ module "vpc1" {
     ibm = "ibm.us"
   }
   
-  ssh_public_key = ${var.ssh_public_key}
+  ssh_public_key = "${var.ssh_public_key}"
 }
