@@ -1,20 +1,20 @@
-resource "random_id" "name1" {
+resource "random_id" "name2" {
   byte_length = 2
 }
 
 locals {
-     ZONE1     = "${var.region1}-1"
+     ZONE2     = "${var.region2}-1"
    }
 
 
-resource "ibm_is_vpc" "vpc1" {
-  name = "vpc-${random_id.name1.hex}"
+resource "ibm_is_vpc" "vpc2" {
+  name = "vpc-${random_id.name2.hex}"
 }
 
 resource "ibm_is_subnet" "subnet1" {
-  name            = "subnet-${random_id.name1.hex}"
-  vpc             = "${ibm_is_vpc.vpc1.id}"
-  zone            = "${local.ZONE1}"
+  name            = "subnet-${random_id.name2.hex}"
+  vpc             = "${ibm_is_vpc.vpc2.id}"
+  zone            = "${local.ZONE2}"
   total_ipv4_address_count = 256
 
   provisioner "local-exec" {
@@ -23,21 +23,20 @@ resource "ibm_is_subnet" "subnet1" {
   }
 }
 
-resource "ibm_is_vpn_gateway" "VPNGateway1" {
-  name   = "vpn-${random_id.name1.hex}"
-  subnet = "${ibm_is_subnet.subnet1.id}"
+resource "ibm_is_vpn_gateway" "VPNGateway2" {
+  name   = "vpn-${random_id.name2.hex}"
+  subnet = "${ibm_is_subnet.subnet2.id}"
 }
 
-resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection1-2" {
-  name          = "vpnconn-${random_id.name1.hex}"
-  vpn_gateway   = "${ibm_is_vpn_gateway.VPNGateway1.id}"
-  peer_address  = "${var.vpc2_peer_ip"
-  preshared_key = "VPNDemoPassword"
-  local_cidrs   = ["${ibm_is_subnet.subnet1.ipv4_cidr_block}"]
-  peer_cidrs    = ["${var.vpc2_ipv4_cidr_block}"]
-  ipsec_policy  = "${ibm_is_ipsec_policy.example.id}"
-  
-}
+#resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection2-1" {
+#  name          = "vpnconn-${random_id.name2.hex}"
+#  vpn_gateway   = "${ibm_is_vpn_gateway.VPNGateway2.id}"
+#  peer_address  = "${ibm_is_vpn_gateway.VPNGateway2.public_ip_address}"
+#  preshared_key = "VPNDemoPassword"
+#  local_cidrs   = ["${ibm_is_subnet.subnet1.ipv4_cidr_block}"]
+#  peer_cidrs    = ["${ibm_is_subnet.subnet2.ipv4_cidr_block}"]
+#  ipsec_policy  = "${ibm_is_ipsec_policy.example.id}"
+#}
 
 resource "ibm_is_ssh_key" "sshkey" {
   name       = "${var.ssh_key_name}-${random_id.name1.hex}"
@@ -116,9 +115,9 @@ resource "ibm_is_ike_policy" "example" {
   ike_version              = 1
 }
 
-output "zone1subnet1" {
+output "zone2subnet1" {
   value = ibm_is_subnet.subnet1.ipv4_cidr_block
 }
-output "zone1vpnip" {
-  value = ibm_is_vpn_gateway.VPNGateway1.public_ip_address
+output "zone2vpnip" {
+  value = ibm_is_vpn_gateway.VPNGateway2.public_ip_address
 }
