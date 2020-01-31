@@ -16,7 +16,10 @@ variable "profile" {
   default = "bc1-2x8"
   description = "The profile of compute CPU and memory resources that you want your VPC virtual servers to have. To list available profiles, run `ibmcloud is instance-profiles`."
 }
-
+variable "region1" {
+  default = "us-south"
+  description = "Matches with provider and gives location of first VPC"
+}
 variable "region2" {
   default = "eu-de"
   description = "Matches with provider and gives location of second VPC"
