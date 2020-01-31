@@ -101,14 +101,14 @@ resource "ibm_is_ssh_key" "sshkey" {
 #}
 
 resource "ibm_is_ipsec_policy" "example" {
-  name                     = "test-ipsec-${random_id.name2.hex}"
+  name                     = "test-ipsec-${random_id.name1.hex}"
   authentication_algorithm = "md5"
   encryption_algorithm     = "3des"
   pfs                      = "disabled"
 }
 
 resource "ibm_is_ike_policy" "example" {
-  name                     = "test-ike-${random_id.name2.hex}"
+  name                     = "test-ike-${random_id.name1.hex}"
   authentication_algorithm = "md5"
   encryption_algorithm     = "3des"
   dh_group                 = 2
