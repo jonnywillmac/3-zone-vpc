@@ -1,10 +1,20 @@
-variable "region" {
-  description = "The region to create your two VPCs in, such as `us-south`. The VPCs are created in two separate zones within the same region. To get a list of all regions, run `ibmcloud is regions`."
-  default = "us-south"
+provider "ibm" {
+  ibmcloud_timeout = 300
+  generation = "1"
+  region = "us-south"
+  alias = "us"
 }
-
 
 provider "ibm" {
   ibmcloud_timeout = 300
   generation = "1"
+  region = "eu-de"
+  alias = "de"
+}
+
+provider "ibm" {
+  ibmcloud_timeout = 300
+  generation = "1"
+  region = "jp-tok"
+  alias = "tok"
 }
