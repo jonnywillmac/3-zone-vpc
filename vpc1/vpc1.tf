@@ -31,7 +31,7 @@ resource "ibm_is_vpn_gateway" "VPNGateway1" {
 resource "ibm_is_vpn_gateway_connection" "VPNGatewayConnection1-2" {
   name          = "vpnconn-${random_id.name1.hex}"
   vpn_gateway   = "${ibm_is_vpn_gateway.VPNGateway1.id}"
-  peer_address  = "${var.vpc2_peer_ip"
+  peer_address  = "${var.vpc2_peer_ip}"
   preshared_key = "VPNDemoPassword"
   local_cidrs   = ["${ibm_is_subnet.subnet1.ipv4_cidr_block}"]
   peer_cidrs    = ["${var.vpc2_ipv4_cidr_block}"]
