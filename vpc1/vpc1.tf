@@ -117,8 +117,8 @@ resource "ibm_is_ike_policy" "example" {
 }
 
 output "zone1subnet1" {
-  value = ibm_is_subnet.subnet1.ipv4_cidr_block
+  value = ${ibm_is_subnet.subnet1.ipv4_cidr_block}
 }
 output "zone1vpnip" {
-  value = ibm_is_vpn_gateway.VPNGateway1.public_ip_address
+  value = ${ibm_is_vpn_gateway.VPNGateway1.public_ip_address}
 }
